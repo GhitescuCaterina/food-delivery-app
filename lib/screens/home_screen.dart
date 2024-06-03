@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'comenzi.dart';
-import 'order_screen.dart';
-import 'model.dart';
 import 'cart_screen.dart';
 import 'cont_screen.dart';
-import 'food_more.dart'; // Import the FoodAndMoreScreen
+import 'food_more.dart';
+import 'restaurante_favorite.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,10 +23,14 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _homePageOptions = <Widget>[
-      const FoodAndMoreScreen(),
-      const Center(
-          child:
-              Text('Restaurante Favorite')), // Placeholder for another screen
+      FoodAndMoreScreen(
+        onOptionChanged: _onDropdownChanged,
+        selectedOption: _selectedOption,
+      ),
+      FavoriteRestaurantsScreen(
+        onOptionChanged: _onDropdownChanged,
+        selectedOption: _selectedOption,
+      ),
       const Center(
           child: Text('Meniul Zilei')), // Placeholder for another screen
     ];
@@ -37,8 +40,8 @@ class HomeScreenState extends State<HomeScreen> {
         onDropdownChanged: _onDropdownChanged,
       ),
       CartScreen(),
-      Comenzi(),
-      ContScreen(), // Adaugă ContScreen
+      const Comenzi(),
+      const ContScreen(), // Adaugă ContScreen
     ];
   }
 
@@ -57,11 +60,37 @@ class HomeScreenState extends State<HomeScreen> {
   void _onDropdownChanged(String? newValue) {
     setState(() {
       _selectedOption = newValue!;
+      _homePageOptions = <Widget>[
+        FoodAndMoreScreen(
+          onOptionChanged: _onDropdownChanged,
+          selectedOption: _selectedOption,
+        ),
+        FavoriteRestaurantsScreen(
+          onOptionChanged: _onDropdownChanged,
+          selectedOption: _selectedOption,
+        ),
+        const Center(
+            child: Text('Meniul Zilei')), // Placeholder for another screen
+      ];
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
+    String dropdownLabel = '';
+    switch (_selectedOption) {
+      case 'Food & More':
+        dropdownLabel = 'Food & More';
+        break;
+      case 'Restaurante Favorite':
+        dropdownLabel = 'Restaurantele tale favorite';
+        break;
+      case 'Meniul Zilei':
+        dropdownLabel = 'Meniul Zilei';
+        break;
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -145,7 +174,12 @@ class _HomePageContentState extends State<HomePageContent> {
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: Text(
+                value,
+                style: TextStyle(
+                    color: Colors
+                        .amber[800]), // Set the color for dropdown items here
+              ),
             );
           }).toList(),
         ),
