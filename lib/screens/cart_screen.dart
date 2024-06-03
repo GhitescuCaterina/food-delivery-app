@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'model.dart';
 
 class CartScreen extends StatefulWidget {
-  CartScreen({Key? key}) : super(key: key);
+  const CartScreen({super.key});
 
   @override
   CartScreenState createState() => CartScreenState();
@@ -33,7 +33,7 @@ class CartScreenState extends State<CartScreen> {
               children: [
                 Text('${item.price.toStringAsFixed(2)} lei'),
                 IconButton(
-                  icon: Icon(Icons.delete, color: Colors.red),
+                  icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () => _removeItem(index),
                 ),
               ],
@@ -47,7 +47,7 @@ class CartScreenState extends State<CartScreen> {
           onPressed: () {
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 255, 213, 157),
+            backgroundColor: const Color.fromARGB(255, 255, 213, 157),
             foregroundColor: Colors.amber[900],
           ),
           child: const Text('Comanda!'),

@@ -52,6 +52,10 @@ class OrderDetailsScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () => _orderAgain(context),
               child: const Text('Order Again'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 255, 206, 168),
+                foregroundColor: Colors.amber[900],
+              ),
             )
           ],
         ),

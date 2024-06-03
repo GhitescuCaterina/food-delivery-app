@@ -8,14 +8,15 @@ class FoodAndMoreScreen extends StatefulWidget {
   final ValueChanged<Map<String, dynamic>> onFavoriteChanged;
 
   const FoodAndMoreScreen({
-    Key? key,
+    super.key,
     required this.onOptionChanged,
     required this.selectedOption,
     required this.favoriteRestaurants,
     required this.onFavoriteChanged,
-  }) : super(key: key);
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _FoodAndMoreScreenState createState() => _FoodAndMoreScreenState();
 }
 

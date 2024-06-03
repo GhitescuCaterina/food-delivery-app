@@ -189,7 +189,7 @@ class HomeScreenState extends State<HomeScreen> {
       HomePageContent(
         onDropdownChanged: _onDropdownChanged,
       ),
-      CartScreen(),
+      const CartScreen(),
       const Comenzi(),
       const ContScreen(),
     ];

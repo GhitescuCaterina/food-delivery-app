@@ -8,12 +8,12 @@ class FavoriteRestaurantsScreen extends StatelessWidget {
   final ValueChanged<Map<String, dynamic>> onFavoriteChanged;
 
   const FavoriteRestaurantsScreen({
-    Key? key,
+    super.key,
     required this.onOptionChanged,
     required this.selectedOption,
     required this.favoriteRestaurants,
     required this.onFavoriteChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

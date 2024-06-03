@@ -62,7 +62,8 @@ class ContScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 255, 206, 168), 
-                    foregroundColor: Colors.amber[900],                  ),
+                    foregroundColor: Colors.amber[900],
+                  ),
                   child: const Text('Setări'),
                 ),
               ],
