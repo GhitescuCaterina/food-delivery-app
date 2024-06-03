@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'restaurant_details.dart';
 
-class FavoriteRestaurantsScreen extends StatefulWidget {
+class FavoriteRestaurantsScreen extends StatelessWidget {
   final ValueChanged<String?> onOptionChanged;
   final String selectedOption;
+  final List<Map<String, dynamic>> favoriteRestaurants;
+  final ValueChanged<Map<String, dynamic>> onFavoriteChanged;
 
-  const FavoriteRestaurantsScreen(
-      {Key? key, required this.onOptionChanged, required this.selectedOption})
-      : super(key: key);
+  const FavoriteRestaurantsScreen({
+    Key? key,
+    required this.onOptionChanged,
+    required this.selectedOption,
+    required this.favoriteRestaurants,
+    required this.onFavoriteChanged,
+  }) : super(key: key);
 
-  @override
-  _FavoriteRestaurantsScreenState createState() =>
-      _FavoriteRestaurantsScreenState();
-}
-
-class _FavoriteRestaurantsScreenState extends State<FavoriteRestaurantsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: DropdownButton<String>(
-          value: widget.selectedOption,
+          value: selectedOption,
           icon: const Icon(Icons.arrow_downward, color: Colors.black),
           iconSize: 24,
           elevation: 16,
@@ -27,7 +28,7 @@ class _FavoriteRestaurantsScreenState extends State<FavoriteRestaurantsScreen> {
           dropdownColor: Colors.amber[800],
           underline: Container(height: 0), // Remove underline
           onChanged: (String? newValue) {
-            widget.onOptionChanged(newValue);
+            onOptionChanged(newValue);
           },
           items: <String>['Food & More', 'Restaurante Favorite', 'Meniul Zilei']
               .map<DropdownMenuItem<String>>((String value) {
@@ -43,53 +44,69 @@ class _FavoriteRestaurantsScreenState extends State<FavoriteRestaurantsScreen> {
           }).toList(),
         ),
       ),
-      body: ListView(
-        children: [
-          _buildItem('Favorite Restaurant 1', 'Descriere restaurant favorit 1',
-              'restaurant1.png'),
-          _buildItem('Favorite Restaurant 2', 'Descriere restaurant favorit 2',
-              'restaurant2.png'),
-          _buildItem('Favorite Restaurant 3', 'Descriere restaurant favorit 3',
-              'restaurant3.png'),
-          // Adaugă mai multe elemente aici, după necesități
-        ],
-      ),
-    );
-  }
-
-  Widget _buildItem(String title, String description, String imagePath) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            'lib/images/$imagePath',
-            width: double.infinity,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+      body: ListView.builder(
+        itemCount: favoriteRestaurants.length,
+        itemBuilder: (context, index) {
+          final restaurant = favoriteRestaurants[index];
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantDetails(
+                    title: restaurant['title'],
+                    description: restaurant['description'],
+                    imagePath: restaurant['imagePath'],
+                    menu: restaurant['menu'],
+                    hours: restaurant['hours'],
+                    rating: restaurant['rating'],
+                    isFavorite: true,
+                    onFavoriteChanged: (isFavorite) {
+                      onFavoriteChanged({
+                        'title': restaurant['title'],
+                        'remove': !isFavorite,
+                      });
+                    },
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  description,
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ],
+              );
+            },
+            child: Card(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    'lib/images/${restaurant['imagePath']}',
+                    width: double.infinity,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          restaurant['title'],
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          restaurant['description'],
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
