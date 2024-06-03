@@ -27,6 +27,7 @@ class CartScreenState extends State<CartScreen> {
           final item = Cart.items[index];
           return ListTile(
             title: Text('${item.quantity} x ${item.name}'),
+            subtitle: Text('De la: ${item.location}'),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -44,7 +45,6 @@ class CartScreenState extends State<CartScreen> {
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () {
-            // Navigate to checkout screen or perform checkout action
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Color.fromARGB(255, 255, 213, 157),

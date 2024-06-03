@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'model.dart';
 
 class RestaurantDetails extends StatelessWidget {
   final String title;
@@ -11,7 +12,7 @@ class RestaurantDetails extends StatelessWidget {
   final ValueChanged<bool> onFavoriteChanged;
 
   const RestaurantDetails({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.imagePath,
@@ -20,7 +21,20 @@ class RestaurantDetails extends StatelessWidget {
     required this.rating,
     required this.isFavorite,
     required this.onFavoriteChanged,
-  }) : super(key: key);
+  });
+
+  void _addToCart(BuildContext context, Map<String, dynamic> item) {
+    Cart.addItem(
+      OrderItem(name: item['name'], price: item['price'], quantity: 1),
+      title,
+    );
+
+    const snackBar = SnackBar(
+      content: Text('Item added to cart!'),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +45,7 @@ class RestaurantDetails extends StatelessWidget {
           IconButton(
             icon: Icon(
               isFavorite ? Icons.star : Icons.star_border,
-              color: isFavorite ? Colors.amber[800] : Colors.amber[800],
+              color: isFavorite ? Colors.yellow : Colors.white,
             ),
             onPressed: () {
               onFavoriteChanged(!isFavorite);
@@ -91,6 +105,7 @@ class RestaurantDetails extends StatelessWidget {
                 ...menu.map((item) => ListTile(
                       title: Text(item['name']),
                       trailing: Text('${item['price']} lei'),
+                      onTap: () => _addToCart(context, item),
                     )),
               ],
             ),

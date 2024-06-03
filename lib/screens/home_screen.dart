@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'comenzi.dart';
 import 'cart_screen.dart';
@@ -16,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   String _selectedOption = 'Food & More';
-  List<Map<String, dynamic>> _favoriteRestaurants = [];
+  final List<Map<String, dynamic>> _favoriteRestaurants = [];
 
   final List<Map<String, dynamic>> _restaurants = [
     {
@@ -188,8 +190,8 @@ class HomeScreenState extends State<HomeScreen> {
         onDropdownChanged: _onDropdownChanged,
       ),
       CartScreen(),
-      Comenzi(),
-      ContScreen(),
+      const Comenzi(),
+      const ContScreen(),
     ];
   }
 
@@ -201,7 +203,8 @@ class HomeScreenState extends State<HomeScreen> {
 
   void navigateToCart() {
     setState(() {
-      _selectedIndex = 1;
+      _selectedIndex =
+          1;
     });
   }
 
@@ -233,7 +236,8 @@ class HomeScreenState extends State<HomeScreen> {
   void _onFavoriteChanged(Map<String, dynamic> restaurant) {
     setState(() {
       if (restaurant.containsKey('remove') && restaurant['remove']) {
-        _favoriteRestaurants.removeWhere((fav) => fav['title'] == restaurant['title']);
+        _favoriteRestaurants
+            .removeWhere((fav) => fav['title'] == restaurant['title']);
       } else {
         _favoriteRestaurants.add(restaurant);
       }
@@ -272,9 +276,11 @@ class HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: Center(
               child: _selectedIndex == 0
-                  ? _homePageOptions[
-                      ['Food & More', 'Restaurante Favorite', 'Meniul Zilei']
-                          .indexOf(_selectedOption)]
+                  ? _homePageOptions[[
+                      'Food & More',
+                      'Restaurante Favorite',
+                      'Meniul Zilei'
+                    ].indexOf(_selectedOption)]
                   : _widgetOptions.elementAt(_selectedIndex),
             ),
           ),
@@ -314,6 +320,7 @@ class HomePageContent extends StatefulWidget {
   final ValueChanged<String?> onDropdownChanged;
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageContentState createState() => _HomePageContentState();
 }
 
@@ -344,7 +351,9 @@ class _HomePageContentState extends State<HomePageContent> {
               value: value,
               child: Text(
                 value,
-                style: TextStyle(color: Colors.amber[800]),
+                style: TextStyle(
+                    color: Colors
+                        .amber[800]),
               ),
             );
           }).toList(),

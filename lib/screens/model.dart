@@ -1,15 +1,3 @@
-class OrderItem {
-  final String name;
-  final double price;
-  final int quantity;
-
-  OrderItem({
-    required this.name,
-    required this.price,
-    required this.quantity,
-  });
-}
-
 class Order {
   final String imageUrl;
   final String name;
@@ -28,16 +16,41 @@ class Order {
   });
 }
 
+class OrderItem {
+  final String name;
+  final double price;
+  final int quantity;
+
+  OrderItem({
+    required this.name,
+    required this.price,
+    required this.quantity,
+  });
+}
+
+class CartItem {
+  final String name;
+  final double price;
+  final int quantity;
+  final String location;
+
+  CartItem({
+    required this.name,
+    required this.price,
+    required this.quantity,
+    required this.location,
+  });
+}
+
 class Cart {
-  static final List<OrderItem> _items = [];
+  static List<CartItem> items = [];
 
-  static void addItem(OrderItem item) {
-    _items.add(item);
-  }
-
-  static List<OrderItem> get items => _items;
-
-  static void clear() {
-    _items.clear();
+  static void addItem(OrderItem item, String location) {
+    items.add(CartItem(
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+      location: location,
+    ));
   }
 }

@@ -169,9 +169,9 @@ class _FoodAndMoreScreenState extends State<FoodAndMoreScreen> {
           iconSize: 24,
           elevation: 16,
           style: const TextStyle(
-              color: Colors.white, fontSize: 20), // Set the color here
+              color: Colors.white, fontSize: 20),
           dropdownColor: Colors.amber[800],
-          underline: Container(height: 0), // Remove underline
+          underline: Container(height: 0),
           onChanged: (String? newValue) {
             widget.onOptionChanged(newValue);
           },
@@ -183,7 +183,7 @@ class _FoodAndMoreScreenState extends State<FoodAndMoreScreen> {
                 value,
                 style: const TextStyle(
                     color:
-                        Colors.black), // Set the color for dropdown items here
+                        Colors.black),
               ),
             );
           }).toList(),

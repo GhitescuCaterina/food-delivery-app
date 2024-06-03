@@ -15,7 +15,7 @@ class ContScreen extends StatelessWidget {
           children: <Widget>[
             const CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('lib/images/proasta1.png'), // Înlocuiește cu calea către imaginea ta
+              backgroundImage: AssetImage('lib/images/proasta1.png'),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -50,7 +50,6 @@ class ContScreen extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // Log out action
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.amber[900], 
@@ -60,7 +59,6 @@ class ContScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigate to settings screen
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 255, 206, 168), 

@@ -113,18 +113,11 @@ class OrderItemWidget extends StatelessWidget {
             icon: const Icon(Icons.replay),
             onPressed: () {
               for (var item in order.items) {
-                Cart.addItem(item);
+                Cart.addItem(item, order.name);
               }
 
-              final snackBar = SnackBar(
-                content: const Text('Items added to cart!'),
-                action: SnackBarAction(
-                  label: 'View Cart',
-                  onPressed: () {
-                    Navigator.of(context).popUntil((route) => route.isFirst);
-                    navigateToCart(context);
-                  },
-                ),
+              const snackBar = SnackBar(
+                content: Text('Items added to cart!'),
               );
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);

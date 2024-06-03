@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'model.dart';
-import 'navigation_helper.dart'; // Import the navigation helper
 
 class OrderDetailsScreen extends StatelessWidget {
   final Order order;
 
-  OrderDetailsScreen({required this.order});
+  const OrderDetailsScreen({super.key, required this.order});
 
   void _orderAgain(BuildContext context) {
     for (var item in order.items) {
-      Cart.addItem(item);
+      Cart.addItem(item, order.name);
     }
 
-    final snackBar = SnackBar(
+    const snackBar = SnackBar(
       content: Text('Items added to cart!'),
-      action: SnackBarAction(
-        label: 'View Cart',
-        onPressed: () {
-          Navigator.of(context).popUntil((route) => route.isFirst);
-          navigateToCart(context);
-        },
-      ),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -42,24 +34,24 @@ class OrderDetailsScreen extends StatelessWidget {
               'Delivered ${DateFormat('dd MMM, yyyy HH:mm').format(order.date)}',
               style: TextStyle(color: Colors.grey[600]),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Order #${order.name.toUpperCase().substring(0, 6)}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Divider(),
+            const Divider(),
             ...order.items.map((item) => ListTile(
                   title: Text('${item.quantity} x ${item.name}'),
                   trailing: Text('${item.price.toStringAsFixed(2)} lei'),
                 )),
-            Divider(),
-            Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Divider(),
+            const Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
             Text('${order.price.toStringAsFixed(2)} lei',
-                style: TextStyle(fontSize: 18)),
-            Spacer(),
+                style: const TextStyle(fontSize: 18)),
+            const Spacer(),
             ElevatedButton(
               onPressed: () => _orderAgain(context),
-              child: Text('Order Again'),
+              child: const Text('Order Again'),
             )
           ],
         ),
