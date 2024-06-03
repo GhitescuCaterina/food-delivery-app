@@ -4,6 +4,8 @@ import 'model.dart';  // Import the shared model
 import 'order_screen.dart'; // Import the file with OrderDetailsScreen
 
 class Comenzi extends StatefulWidget {
+  const Comenzi({super.key});
+
   @override
   _ComenziState createState() => _ComenziState();
 }
@@ -48,7 +50,7 @@ class _ComenziState extends State<Comenzi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Comenzile tale')),
+      appBar: AppBar(title: const Text('Comenzile tale')),
       body: ListView.separated(
         itemCount: pastOrders.length,
         itemBuilder: (context, index) => InkWell(
@@ -59,7 +61,7 @@ class _ComenziState extends State<Comenzi> {
                       OrderDetailsScreen(order: pastOrders[index]))),
           child: OrderItemWidget(order: pastOrders[index]),
         ),
-        separatorBuilder: (context, index) => Divider(),
+        separatorBuilder: (context, index) => const Divider(),
       ),
     );
   }
@@ -68,12 +70,12 @@ class _ComenziState extends State<Comenzi> {
 class OrderItemWidget extends StatelessWidget {
   final Order order;
 
-  OrderItemWidget({required this.order});
+  const OrderItemWidget({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
         children: [
           ClipRRect(
@@ -83,26 +85,24 @@ class OrderItemWidget extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(left: 16),
+              padding: const EdgeInsets.only(left: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(order.name,
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   Text('${order.price.toStringAsFixed(2)} lei',
-                      style: TextStyle(fontSize: 16, color: Colors.grey)),
+                      style: const TextStyle(fontSize: 16, color: Colors.grey)),
                   Text(
-                      DateFormat('dd MMM, yyyy HH:mm').format(order.date) +
-                          ' ' +
-                          order.status,
-                      style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      '${DateFormat('dd MMM, yyyy HH:mm').format(order.date)} ${order.status}',
+                      style: const TextStyle(fontSize: 14, color: Colors.grey)),
                 ],
               ),
             ),
           ),
           IconButton(
-            icon: Icon(Icons.replay),
+            icon: const Icon(Icons.replay),
             onPressed: () {
               // Implement repeat order action
             },

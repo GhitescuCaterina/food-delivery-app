@@ -9,6 +9,12 @@ class CartScreen extends StatefulWidget {
 }
 
 class CartScreenState extends State<CartScreen> {
+  void _removeItem(int index) {
+    setState(() {
+      Cart.items.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +27,16 @@ class CartScreenState extends State<CartScreen> {
           final item = Cart.items[index];
           return ListTile(
             title: Text('${item.quantity} x ${item.name}'),
-            trailing: Text('${item.price.toStringAsFixed(2)} lei'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('${item.price.toStringAsFixed(2)} lei'),
+                IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: () => _removeItem(index),
+                ),
+              ],
+            ),
           );
         },
       ),

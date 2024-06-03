@@ -3,15 +3,16 @@ import 'comenzi.dart';
 import 'order_screen.dart';
 import 'model.dart';
 import 'cart_screen.dart'; // Import the CartScreen
+import 'navigation_helper.dart'; // Import the navigation helper
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
@@ -99,10 +100,7 @@ class _HomePageContentState extends State<HomePageContent> {
           iconSize: 24,
           elevation: 16,
           style: TextStyle(color: Colors.amber[800]),
-          underline: Container(
-            height: 2,
-            color: Colors.amber[800],
-          ),
+          underline: Container(height: 2, color: Colors.amber[800]),
           onChanged: (String? newValue) {
             setState(() {
               _selectedOption = newValue!;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'model.dart';
-import 'home_screen.dart'; // Import the HomeScreen
+import 'navigation_helper.dart'; // Import the navigation helper
 
 class OrderDetailsScreen extends StatelessWidget {
   final Order order;
@@ -18,10 +18,8 @@ class OrderDetailsScreen extends StatelessWidget {
       action: SnackBarAction(
         label: 'View Cart',
         onPressed: () {
-          // Access HomeScreenState and call navigateToCart
           Navigator.of(context).popUntil((route) => route.isFirst);
-          final homeScreenState = context.findAncestorStateOfType<_HomeScreenState>();
-          homeScreenState?.navigateToCart();
+          navigateToCart(context);
         },
       ),
     );
@@ -51,12 +49,13 @@ class OrderDetailsScreen extends StatelessWidget {
             ),
             Divider(),
             ...order.items.map((item) => ListTile(
-              title: Text('${item.quantity} x ${item.name}'),
-              trailing: Text('${item.price.toStringAsFixed(2)} lei'),
-            )),
+                  title: Text('${item.quantity} x ${item.name}'),
+                  trailing: Text('${item.price.toStringAsFixed(2)} lei'),
+                )),
             Divider(),
             Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
-            Text('${order.price.toStringAsFixed(2)} lei', style: TextStyle(fontSize: 18)),
+            Text('${order.price.toStringAsFixed(2)} lei',
+                style: TextStyle(fontSize: 18)),
             Spacer(),
             ElevatedButton(
               onPressed: () => _orderAgain(context),
