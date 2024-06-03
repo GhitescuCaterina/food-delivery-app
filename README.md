@@ -1,4 +1,4 @@
-# tazz_clone
+# Tazz clone
 
 A new Flutter project.
 
