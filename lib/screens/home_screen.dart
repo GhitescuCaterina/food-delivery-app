@@ -1,9 +1,11 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'comenzi.dart';
 import 'order_screen.dart';
 import 'model.dart';
-import 'cart_screen.dart'; // Import the CartScreen
-import 'navigation_helper.dart'; // Import the navigation helper
+import 'cart_screen.dart';
+import 'navigation_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

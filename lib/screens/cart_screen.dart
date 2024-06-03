@@ -19,7 +19,7 @@ class CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
+        title: Text('Cosul tau (${Cart.items.length} produse)'),
       ),
       body: ListView.builder(
         itemCount: Cart.items.length,
@@ -46,7 +46,11 @@ class CartScreenState extends State<CartScreen> {
           onPressed: () {
             // Navigate to checkout screen or perform checkout action
           },
-          child: Text('Checkout'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(255, 255, 213, 157),
+            foregroundColor: Colors.amber[900],
+          ),
+          child: const Text('Comanda!'),
         ),
       ),
     );

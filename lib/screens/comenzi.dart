@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'model.dart';  // Import the shared model
-import 'order_screen.dart'; // Import the file with OrderDetailsScreen
+import 'model.dart';
+import 'order_screen.dart';
+import 'navigation_helper.dart';
 
 class Comenzi extends StatefulWidget {
   const Comenzi({super.key});
@@ -13,38 +14,45 @@ class Comenzi extends StatefulWidget {
 class _ComenziState extends State<Comenzi> {
   List<Order> pastOrders = [
     Order(
-      imageUrl: 'lib/images/order1.png',
-      name: 'Altceva',
-      price: 33.59,
-      date: DateTime(2024, 6, 1, 21, 59),
-      status: 'Delivered',
-      items: [
-        OrderItem(name: 'Pizza pollo', price: 20.50, quantity: 1),
-        OrderItem(name: 'Sour cream with garlic', price: 5.00, quantity: 1),
-      ]
-    ),
+        imageUrl: 'lib/images/order1.png',
+        name: 'Altceva',
+        price: 40.50,
+        date: DateTime(2024, 6, 1, 21, 59),
+        status: 'Delivered',
+        items: [
+          OrderItem(name: 'Pizza pollo', price: 30.50, quantity: 1),
+          OrderItem(name: 'Sour cream with garlic', price: 10.00, quantity: 1),
+        ]),
     Order(
-      imageUrl: 'lib/images/order2.png',
-      name: 'Pizza Hut',
-      price: 45.99,
-      date: DateTime(2024, 6, 2, 19, 30),
-      status: 'Delivered',
-      items: [
-        OrderItem(name: 'Pizza margherita', price: 25.00, quantity: 1),
-        OrderItem(name: 'Coca-Cola', price: 5.00, quantity: 2),
-      ]
-    ),
+        imageUrl: 'lib/images/order2.png',
+        name: 'Pizza Hut',
+        price: 43.00,
+        date: DateTime(2024, 6, 2, 19, 30),
+        status: 'Delivered',
+        items: [
+          OrderItem(name: 'Pizza margherita', price: 35.00, quantity: 1),
+          OrderItem(name: 'Coca-Cola', price: 8.00, quantity: 2),
+        ]),
     Order(
-      imageUrl: 'lib/images/order3.png',
-      name: 'Restaurant la Mama',
-      price: 22.99,
-      date: DateTime(2024, 6, 3, 12, 45),
-      status: 'Delivered',
-      items: [
-        OrderItem(name: 'Sarmale', price: 15.00, quantity: 1),
-        OrderItem(name: 'Ciorba Radauteana', price: 5.00, quantity: 1),
-      ]
-    ),
+        imageUrl: 'lib/images/order3.png',
+        name: 'Restaurant la Mama',
+        price: 38.98,
+        date: DateTime(2024, 6, 3, 12, 45),
+        status: 'Delivered',
+        items: [
+          OrderItem(name: 'Sarmale', price: 22.99, quantity: 1),
+          OrderItem(name: 'Ciorba Radauteana', price: 15.99, quantity: 1),
+        ]),
+    Order(
+        imageUrl: 'lib/images/order4.png',
+        name: 'McDonalds',
+        price: 34.00,
+        date: DateTime(2024, 6, 4, 18, 15),
+        status: 'Delivered',
+        items: [
+          OrderItem(name: 'Meniu Big Mac', price: 24.00, quantity: 1),
+          OrderItem(name: 'Strudel', price: 10.00, quantity: 1),
+        ]),
   ];
 
   @override
@@ -90,8 +98,8 @@ class OrderItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(order.name,
-                      style:
-                          const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold)),
                   Text('${order.price.toStringAsFixed(2)} lei',
                       style: const TextStyle(fontSize: 16, color: Colors.grey)),
                   Text(
@@ -104,7 +112,22 @@ class OrderItemWidget extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.replay),
             onPressed: () {
-              // Implement repeat order action
+              for (var item in order.items) {
+                Cart.addItem(item);
+              }
+
+              final snackBar = SnackBar(
+                content: const Text('Items added to cart!'),
+                action: SnackBarAction(
+                  label: 'View Cart',
+                  onPressed: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    navigateToCart(context);
+                  },
+                ),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
           ),
         ],
