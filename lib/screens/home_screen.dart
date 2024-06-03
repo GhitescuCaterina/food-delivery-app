@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'comenzi.dart';
-import 'order_screen.dart';
-import 'model.dart';
 import 'cart_screen.dart';
 import 'cont_screen.dart';
 import 'food_more.dart';
