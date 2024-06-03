@@ -1,11 +1,10 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
 import 'comenzi.dart';
 import 'order_screen.dart';
 import 'model.dart';
 import 'cart_screen.dart';
-import 'navigation_helper.dart';
+import 'cont_screen.dart';
+import 'food_more.dart'; // Import the FoodAndMoreScreen
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,13 +15,32 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  String _selectedOption = 'Food & More';
 
-  final List<Widget> _widgetOptions = <Widget>[
-    const HomePageContent(),
-    CartScreen(),
-    Comenzi(),
-    const Text('Cont'),
-  ];
+  late List<Widget> _homePageOptions;
+  late List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    _homePageOptions = <Widget>[
+      const FoodAndMoreScreen(),
+      const Center(
+          child:
+              Text('Restaurante Favorite')), // Placeholder for another screen
+      const Center(
+          child: Text('Meniul Zilei')), // Placeholder for another screen
+    ];
+
+    _widgetOptions = <Widget>[
+      HomePageContent(
+        onDropdownChanged: _onDropdownChanged,
+      ),
+      CartScreen(),
+      Comenzi(),
+      ContScreen(), // Adaugă ContScreen
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -33,6 +51,12 @@ class HomeScreenState extends State<HomeScreen> {
   void navigateToCart() {
     setState(() {
       _selectedIndex = 1;
+    });
+  }
+
+  void _onDropdownChanged(String? newValue) {
+    setState(() {
+      _selectedOption = newValue!;
     });
   }
 
@@ -48,7 +72,13 @@ class HomeScreenState extends State<HomeScreen> {
           const Divider(height: 0.7, color: Color.fromARGB(255, 228, 228, 228)),
           Expanded(
             child: Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
+              child: _selectedIndex == 0
+                  ? _homePageOptions[[
+                      'Food & More',
+                      'Restaurante Favorite',
+                      'Meniul Zilei'
+                    ].indexOf(_selectedOption)]
+                  : _widgetOptions.elementAt(_selectedIndex),
             ),
           ),
         ],
@@ -82,7 +112,9 @@ class HomeScreenState extends State<HomeScreen> {
 }
 
 class HomePageContent extends StatefulWidget {
-  const HomePageContent({super.key});
+  const HomePageContent({Key? key, required this.onDropdownChanged});
+
+  final ValueChanged<String?> onDropdownChanged;
 
   @override
   _HomePageContentState createState() => _HomePageContentState();
@@ -107,6 +139,7 @@ class _HomePageContentState extends State<HomePageContent> {
             setState(() {
               _selectedOption = newValue!;
             });
+            widget.onDropdownChanged(newValue);
           },
           items: <String>['Food & More', 'Restaurante Favorite', 'Meniul Zilei']
               .map<DropdownMenuItem<String>>((String value) {
@@ -115,11 +148,6 @@ class _HomePageContentState extends State<HomePageContent> {
               child: Text(value),
             );
           }).toList(),
-        ),
-        Expanded(
-          child: Center(
-            child: Text('Selected: $_selectedOption'),
-          ),
         ),
       ],
     );

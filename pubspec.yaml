@@ -65,6 +65,14 @@ flutter:
       - lib/images/order2.png
       - lib/images/order3.png
       - lib/images/order4.png
+      - lib/images/proasta1.png
+      - lib/images/restaurant1.png
+      - lib/images/restaurant2.png
+      - lib/images/restaurant3.png
+      - lib/images/restaurant4.png
+      - lib/images/magazin1.png
+      - lib/images/magazin2.png
+      - lib/images/cafenea1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
